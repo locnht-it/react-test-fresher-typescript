@@ -1,5 +1,13 @@
+import { Outlet } from "react-router-dom";
+import AppHeader from "./components/layout/app.header";
+
 const Layout = () => {
-  return <div>Hello World with Loc Ngo-Huynh-Tan update</div>;
+  return (
+    <>
+      <AppHeader />
+      <Outlet />
+    </>
+  );
 };
 
 export default Layout;

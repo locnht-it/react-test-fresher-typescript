@@ -1,8 +1,8 @@
-import { Button, Divider, Form, FormProps, Input } from "antd";
+import { App, Button, Divider, Form, FormProps, Input } from "antd";
 import "./register.scss";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { loginAPI } from "@/services/api";
+import { Link, useNavigate } from "react-router-dom";
+import { registerAPI } from "@/services/api";
 
 type FieldType = {
   fullName: string;
@@ -14,12 +14,26 @@ type FieldType = {
 const RegisterPage = () => {
   const [form] = Form.useForm();
   const [isSubmit, setIsSubmit] = useState(false);
+  const { message } = App.useApp();
+  const navigate = useNavigate();
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-    console.log("Success:", values);
+    setIsSubmit(true);
 
-    const res = await loginAPI("user@gmail.com", "1234567");
-    console.log(`>>> Check res: `, res);
+    const res = await registerAPI(
+      values.fullName,
+      values.email,
+      values.password,
+      values.phone
+    );
+    if (res.data) {
+      message.success("Đăng nhập thành công!");
+      navigate("/login");
+    } else {
+      message.error(res.message);
+    }
+
+    setIsSubmit(false);
   };
 
   return (

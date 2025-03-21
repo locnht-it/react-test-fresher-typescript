@@ -14,7 +14,7 @@ type FieldType = {
 const RegisterPage = () => {
   const [form] = Form.useForm();
   const [isSubmit, setIsSubmit] = useState(false);
-  const { message } = App.useApp();
+  const { notification, message } = App.useApp();
   const navigate = useNavigate();
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
@@ -25,10 +25,16 @@ const RegisterPage = () => {
     // debugger;
     const res = await registerAPI(fullName, email, password, phone);
     if (res.data) {
-      message.success("Đăng nhập thành công!");
+      message.success("Đăng ký tài khoản thành công!");
       navigate("/login");
     } else {
-      message.error(res.message);
+      notification.error({
+        message: "Đăng ký thất bại!",
+        description:
+          res.message && Array.isArray(res.message)
+            ? res.message[0]
+            : res.message,
+      });
     }
 
     setIsSubmit(false);

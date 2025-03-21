@@ -20,12 +20,10 @@ const RegisterPage = () => {
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     setIsSubmit(true);
 
-    const res = await registerAPI(
-      values.fullName,
-      values.email,
-      values.password,
-      values.phone
-    );
+    const { fullName, email, password, phone } = values;
+    // console.log(`>>> Check values: `, values);
+    // debugger;
+    const res = await registerAPI(fullName, email, password, phone);
     if (res.data) {
       message.success("Đăng nhập thành công!");
       navigate("/login");

@@ -1,4 +1,4 @@
-import { FORMATE_DATE, FORMATE_DATE_VN } from "@/services/helper";
+import { FORMATE_DATE_VN } from "@/services/helper";
 import { Avatar, Badge, Descriptions, Drawer } from "antd";
 import dayjs from "dayjs";
 
